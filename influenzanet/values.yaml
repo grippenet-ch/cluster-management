@@ -5,9 +5,9 @@
 # Platform description
 ##
 
-namespace: example
-platformName: "Influenzanet Example"
-contactEmail: "support@example.com"
+namespace: switzerland
+platformName: "Grippenet Suisse"
+contactEmail: "support@grippenet.ch"
 
 ##
 # External access configuration
@@ -19,12 +19,13 @@ ingress:
   name: "ingress-web"
 
 # Replace this with the main domain name for Influenzanet Application
-domain: example.com
+domain: grippenet.ch
 
 # Additional domains to redirect to the main domain
 redirectDomains:
-  - app.{{ .Values.domain }}
-  - example.org
+  - "de.{{ .Values.domain }}"
+  - "fr.{{ .Values.domain }}"
+  - "it.{{ .Values.domain }}"
 
 # API endpoints
 participantApiPath: "/api"
@@ -43,9 +44,9 @@ tlsDomains:
 issuerType: "acme"
 
 # If issuerType: 'acme'
-clusterIssuer : "letsencrypt"
-acmeServer: https://acme-v02.api.letsencrypt.org/directory
-acmeEmail: admin@example.com
+clusterIssuer: "letsencrypt"
+acmeServer: "https://acme-v02.api.letsencrypt.org/directory"
+acmeEmail: admin@grippenet.ch
 # Name of the secret used to store the generated certificate
 tlsSecretName: 'site-tls-web'
 
@@ -59,8 +60,8 @@ CAIssuerSecretName: ''
 
 basicAuth:
   enabled: false
-  username: "user"
-  password: "password"
+  username: ""
+  password: ""
   excludePaths: []
 
 # Use Google Recaptcha for protecting the registration dialog from spammers, if
@@ -73,33 +74,29 @@ useRecaptcha: true
 
 ## Regular Email Server
 smtpServers:
-  from: "Influenzanet Example <no-reply@example.com>"
-  sender: "Influenzanet Example <no-reply@example.com>"
-  replyTo:
-    - no-reply@example.com
+  from: "{{ .Values.smtpEmail }}"
+  sender: "{{ .Values.smtpEmail }}"
   servers:
-    - host: smtp.example.com
-      port: 465
-      connections: 2
+    - host: smtp.eu.mailgun.org
+      port: 587
+      connections: 1
       sendTimeout: 5
       auth:
-        user: postmaster@example.com
-        password: "password"
+        user: "{{ .Values.smtpUser }}"
+        password: "{{ .Values.smtpPassword }}"
 
 ## High Priority email server
 prioSmtpServers:
-  from: "Influenzanet Example <no-reply@example.com>"
-  sender: "Influenzanet Example <no-reply@example.com>"
-  replyTo:
-    - no-reply@example.com
+  from: "{{ .Values.smtpEmail }}"
+  sender: "{{ .Values.smtpEmail }}"
   servers:
-    - host: smtp.example.com
-      port: 465
-      connections: 2
+    - host: smtp.eu.mailgun.org
+      port: 587
+      connections: 1
       sendTimeout: 5
       auth:
-        user: postmaster@example.com
-        password: "password"
+        user: "{{ .Values.smtpUser }}"
+        password: "{{ .Values.smtpPassword }}"
 
 ##
 # Platform secrets
@@ -165,7 +162,7 @@ dbSecretName: "case-mongodb-atlas"
 svcWebParticipant:
     name: web-client
     replicas: 1
-    image: influenzanet/participant-webapp:v1.14.1-0
+    image: grippenetch/participant-webapp:v2.2
     imagePullPolicy: IfNotPresent
     containerPort: 3100
     serviceName: web-client-service
@@ -177,7 +174,7 @@ svcWebParticipant:
 svcEmailClient:
   name: email-client
   replicas: 1
-  image: influenzanet/email-client-service-image:v1.2.0
+  image: influenzanet/email-client-service-image:v1.3.2
   imagePullPolicy: IfNotPresent
   containerPort: 5005
   serviceName: email-client-service
@@ -196,7 +193,7 @@ svcLogging:
 svcManagementApi:
   name: management-api
   replicas: 1
-  image: influenzanet/management-api-image:v1.2.0
+  image: influenzanet/management-api-image:v1.3.0
   imagePullPolicy: IfNotPresent
   containerPort: 3232      
   corsAllowOrigins: 'https://{{ .Values.domain }}'
@@ -207,7 +204,7 @@ svcManagementApi:
 svcParticipantApi:
   name: participant-api
   replicas: 1
-  image: influenzanet/participant-api-image:v1.2.0
+  image: influenzanet/participant-api-image:v1.3.0
   imagePullPolicy: IfNotPresent
   containerPort: 3231
   corsAllowOrigins: 'https://{{ .Values.domain }}'
@@ -220,7 +217,7 @@ svcParticipantApi:
 SvcMessageScheduler:
   name: messaging-scheduler
   replicas: 1
-  image: influenzanet/messaging-scheduler-image:v1.2.0
+  image: influenzanet/messaging-scheduler-image:v1.3.2
   imagePullPolicy: IfNotPresent
   containerPort: 5009
   serviceName: messaging-scheduler-service
@@ -239,7 +236,7 @@ SvcMessageScheduler:
 svcMessaging:
   name: messaging
   replicas: 1
-  image: influenzanet/messaging-service-image:v1.2.0
+  image: influenzanet/messaging-service-image:v1.3.2
   imagePullPolicy: IfNotPresent
   containerPort: 5004
   serviceName: messaging-service
@@ -250,7 +247,7 @@ svcMessaging:
 svcStudyService:
   name: study
   replicas: 1
-  image: influenzanet/study-service-image:v1.3.1
+  image: influenzanet/study-service-image:v1.5.0
   imagePullPolicy: IfNotPresent
   serviceName: study-service
   containerPort: 5003
@@ -264,7 +261,7 @@ svcStudyService:
 svcUserManagement:
   name: user-management
   replicas: 1
-  image: influenzanet/user-management-image:v1.1.1
+  image: influenzanet/user-management-image:v1.1.1-hotfix-02
   imagePullPolicy: IfNotPresent
   serviceName: "user-management-service"
   containerPort: 5002

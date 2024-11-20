@@ -1,2 +1,2 @@
-image: "[dockerhub-repo]/mailgun-webhook"
-endpoint: "[endpoint-url-path]"
+image: grippenetch/mailgun-webhook:v1.0-pre
+endpoint: "{{ .Values.mailgunEndpoint }}"

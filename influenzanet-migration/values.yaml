@@ -9,21 +9,21 @@ participant_api_url: "http://participant-api-service:3231"
 
 # user credentials to access the apis
 user_credentials:
-  email: "email"
-  password: "password"
+  email: "{{ .Values.platformCredentials.email }}"
+  password: "{{ .Values.platformCredentials.password }}"
 
 # two letter iso name for the preferred language for the migration
-language: "en"
+language: "fr"
 
 # use two factors authentication
 use2FA: true
 
-# ignore empy profiles 
+# ignore empty profiles
 skipEmptyProfiles: true
     
 # study keys to be assigned to the users
 studyKeys:
-  - influweb
+  - standard
 
 # crontab like syntax for the job scheduler
 schedule: "0 4-7 * * *"
