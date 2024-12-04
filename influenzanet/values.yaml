@@ -261,7 +261,7 @@ svcStudyService:
 svcUserManagement:
   name: user-management
   replicas: 1
-  image: influenzanet/user-management-image:v1.3.0-influenzanet-policy-change.1
+  image: influenzanet/user-management-image:v1.3.0-influenzanet-policy-change.2
   imagePullPolicy: IfNotPresent
   serviceName: "user-management-service"
   containerPort: 5002
