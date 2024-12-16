@@ -193,7 +193,7 @@ svcLogging:
 svcManagementApi:
   name: management-api
   replicas: 1
-  image: influenzanet/management-api-image:v1.5.1-privacy-policy-change.2
+  image: influenzanet/management-api-image:v1.5.1-privacy-policy-change.4
   imagePullPolicy: IfNotPresent
   containerPort: 3232      
   corsAllowOrigins: 'https://{{ .Values.domain }}'
@@ -204,7 +204,7 @@ svcManagementApi:
 svcParticipantApi:
   name: participant-api
   replicas: 1
-  image: influenzanet/participant-api-image:v1.5.1-privacy-policy-change.2
+  image: influenzanet/participant-api-image:v1.5.1-privacy-policy-change.4
   imagePullPolicy: IfNotPresent
   containerPort: 3231
   corsAllowOrigins: 'https://{{ .Values.domain }}'
@@ -261,7 +261,7 @@ svcStudyService:
 svcUserManagement:
   name: user-management
   replicas: 1
-  image: influenzanet/user-management-image:v1.3.0-influenzanet-policy-change.2
+  image: influenzanet/user-management-image:v1.3.0-influenzanet-policy-change.3
   imagePullPolicy: IfNotPresent
   serviceName: "user-management-service"
   containerPort: 5002
