@@ -162,7 +162,7 @@ dbSecretName: "case-mongodb-atlas"
 svcWebParticipant:
     name: web-client
     replicas: 1
-    image: grippenetch/participant-webapp:v2.5
+    image: grippenetch/participant-webapp:v2.8
     imagePullPolicy: IfNotPresent
     containerPort: 3100
     serviceName: web-client-service
